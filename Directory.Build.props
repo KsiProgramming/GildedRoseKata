@@ -1,0 +1,42 @@
+<Project>
+
+  <!-- Common properties -->
+  <PropertyGroup>
+    <!--Setting this to true enables the usage of the latest version of C# language features.-->
+    <AcceleratBuilnInVisualStudio>true</AcceleratBuilnInVisualStudio>
+
+    <!--Setting this to true disables the automatic transitive project references feature.-->
+    <DisableTransitiveProjectReferences>true</DisableTransitiveProjectReferences>
+
+    <!--Specifies the location of the code analysis ruleset file.-->
+    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)CodeAnalysisRules.ruleset</CodeAnalysisRuleSet>
+
+    <!-- Enable the last version of C# -->
+    <LangVersion>latest</LangVersion>
+
+    <!-- Enable implict usings -->
+    <ImplicitUsings>enable</ImplicitUsings>
+
+    <!-- Disable the Analyzers in Release configuration -->
+    <RunAnalyzers Condition="'$(Configuration)' == 'Release'">false</RunAnalyzers>
+  </PropertyGroup>
+
+  <!-- Common files -->
+  <ItemGroup>
+    <AdditionalFiles Include="..\..\stylecop.json">
+      <Link>stylecop.json</Link>
+    </AdditionalFiles>
+  </ItemGroup>
+
+  <!-- Common NuGet packages -->
+  <ItemGroup>
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="9.25.0.90414">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+</Project>
