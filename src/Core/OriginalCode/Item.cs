@@ -8,7 +8,9 @@ namespace GildedRoseKata.OriginalCode
 {
     public class Item
     {
+#pragma warning disable 8618
         public string Name { get; set; }
+#pragma warning restore 8618
 
         public int SellIn { get; set; }
 
