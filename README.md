@@ -1,5 +1,7 @@
 # Gilded Rose Kata
 
+[![Build](https://github.com/KsiProgramming/GildedRoseKata/actions/workflows/dotnet.yml/badge.svg)](https://github.com/KsiProgramming/GildedRoseKata/actions/workflows/dotnet.yml)
+
 ## Table of Contents
 - [History](#history)
 - [Kata Description](#kata-description)
