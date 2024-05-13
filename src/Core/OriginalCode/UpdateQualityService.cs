@@ -92,5 +92,4 @@ public class UpdateQualityService
         }
     }
 #pragma warning restore S1066, S1764
-
 }
