@@ -6,86 +6,79 @@
 
 namespace GildedRoseKata.OriginalCode;
 
-public class UpdateQualityService
+public class UpdateQualityService(IList<Item> items)
 {
-    private readonly IList<Item> items;
-
-    public UpdateQualityService(IList<Item> items)
-    {
-        this.items = items;
-    }
-
 #pragma warning disable S1066, S1764
     public void UpdateQuality()
     {
-        for (var i = 0; i < this.items.Count; i++)
+        for (var i = 0; i < items.Count; i++)
         {
-            if (this.items[i].Name != "Aged Brie" && this.items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
+            if (items[i].Name != "Aged Brie" && items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
             {
-                if (this.items[i].Quality > 0)
+                if (items[i].Quality > 0)
                 {
-                    if (this.items[i].Name != "Sulfuras, Hand of Ragnaros")
+                    if (items[i].Name != "Sulfuras, Hand of Ragnaros")
                     {
-                        this.items[i].Quality = this.items[i].Quality - 1;
+                        items[i].Quality = items[i].Quality - 1;
                     }
                 }
             }
             else
             {
-                if (this.items[i].Quality < 50)
+                if (items[i].Quality < 50)
                 {
-                    this.items[i].Quality = this.items[i].Quality + 1;
+                    items[i].Quality = items[i].Quality + 1;
 
-                    if (this.items[i].Name == "Backstage passes to a TAFKAL80ETC concert")
+                    if (items[i].Name == "Backstage passes to a TAFKAL80ETC concert")
                     {
-                        if (this.items[i].SellIn < 11)
+                        if (items[i].SellIn < 11)
                         {
-                            if (this.items[i].Quality < 50)
+                            if (items[i].Quality < 50)
                             {
-                                this.items[i].Quality = this.items[i].Quality + 1;
+                                items[i].Quality = items[i].Quality + 1;
                             }
                         }
 
-                        if (this.items[i].SellIn < 6)
+                        if (items[i].SellIn < 6)
                         {
-                            if (this.items[i].Quality < 50)
+                            if (items[i].Quality < 50)
                             {
-                                this.items[i].Quality = this.items[i].Quality + 1;
+                                items[i].Quality = items[i].Quality + 1;
                             }
                         }
                     }
                 }
             }
 
-            if (this.items[i].Name != "Sulfuras, Hand of Ragnaros")
+            if (items[i].Name != "Sulfuras, Hand of Ragnaros")
             {
-                this.items[i].SellIn = this.items[i].SellIn - 1;
+                items[i].SellIn = items[i].SellIn - 1;
             }
 
-            if (this.items[i].SellIn < 0)
+            if (items[i].SellIn < 0)
             {
-                if (this.items[i].Name != "Aged Brie")
+                if (items[i].Name != "Aged Brie")
                 {
-                    if (this.items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
+                    if (items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
                     {
-                        if (this.items[i].Quality > 0)
+                        if (items[i].Quality > 0)
                         {
-                            if (this.items[i].Name != "Sulfuras, Hand of Ragnaros")
+                            if (items[i].Name != "Sulfuras, Hand of Ragnaros")
                             {
-                                this.items[i].Quality = this.items[i].Quality - 1;
+                                items[i].Quality = items[i].Quality - 1;
                             }
                         }
                     }
                     else
                     {
-                        this.items[i].Quality = this.items[i].Quality - this.items[i].Quality;
+                        items[i].Quality = items[i].Quality - items[i].Quality;
                     }
                 }
                 else
                 {
-                    if (this.items[i].Quality < 50)
+                    if (items[i].Quality < 50)
                     {
-                        this.items[i].Quality = this.items[i].Quality + 1;
+                        items[i].Quality = items[i].Quality + 1;
                     }
                 }
             }
