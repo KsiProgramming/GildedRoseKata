@@ -8,7 +8,7 @@ namespace GildedRoseKata.ProposedCode.MaturingStrategies
 {
     internal class AgedBrieMaturingStrategy : IItemMaturingStrategy
     {
-        public ItemMaturingResponse UpdateQuality(ItemMaturingRequest request)
+        public ItemMaturingResponse Update(ItemMaturingRequest request)
         {
             var newQuality = request.quality;
             if (newQuality.IsBelowLimit(50))

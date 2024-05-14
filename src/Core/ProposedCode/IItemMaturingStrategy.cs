@@ -8,6 +8,6 @@ namespace GildedRoseKata.ProposedCode
 {
     public interface IItemMaturingStrategy
     {
-        ItemMaturingResponse UpdateQuality(ItemMaturingRequest request);
+        ItemMaturingResponse Update(ItemMaturingRequest request);
     }
 }
