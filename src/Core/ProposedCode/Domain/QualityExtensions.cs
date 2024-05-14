@@ -15,7 +15,7 @@ namespace GildedRoseKata.ProposedCode
 
         public static Quality Decrease(this Quality quality)
         {
-            return new Quality(quality.value - 1);
+            return DecreaseBy(quality, 1);
         }
 
         public static Quality DecreaseBy(this Quality quality, int value)
@@ -25,7 +25,7 @@ namespace GildedRoseKata.ProposedCode
 
         public static Quality Increase(this Quality quality)
         {
-            return new Quality(quality.value + 1);
+            return IncreaseBy(quality, 1);
         }
 
         public static Quality IncreaseBy(this Quality quality, int value)
