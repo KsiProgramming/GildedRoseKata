@@ -1,12 +1,6 @@
 name: Build & Test
 
 on:
-  pull_request:
-    branches: [ master ]
-    paths-ignore:
-      - '.gitignore'
-      - 'README.md'
-
   workflow_call:
     inputs:
       dotnet-version:
