@@ -1,4 +1,4 @@
-name: Build
+name: Build & Test
 
 on:
   pull_request:
@@ -20,15 +20,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Code Checkout
-      uses: action/checkout@v4
+    - name: Chceckout code
+      uses: actions/checkout@v4
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with: 
         dotnet-version: ${{ inputs.dotnet-version }}
+
     - name: Restore dependencies
       run: dotnet restore
+
     - name: Build code
       run: dotnet build --no-restore
+
     - name: Test code
       run: dornet test --no-build --verbosity normal
