@@ -1,0 +1,27 @@
+name: Build
+
+on:
+  pull_request:
+    branches: [ master ]
+    paths-ignore:
+      - '.gitignore'
+      - 'README.md'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Code Checkout
+      uses: action/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with: 
+        dotnet-version: 8.0.x
+    - name: Restore dependencies
+      uses: dotnet restore
+    - name: Build code
+      uses: dotnet build --no-restore
+    - name: Test code
+      uses: dornet test --no-build --verbosity normal
