@@ -32,5 +32,10 @@ namespace GildedRoseKata.ProposedCode
         {
             return new Quality(quality.value + value);
         }
+
+        public static bool IsAboveMinimum(this Quality quality, int minimum)
+        {
+            return quality.value > minimum;
+        }
     }
 }
