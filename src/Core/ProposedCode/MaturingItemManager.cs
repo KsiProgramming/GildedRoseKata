@@ -17,7 +17,7 @@ namespace GildedRoseKata.ProposedCode
             this.strategies = strategies;
         }
 
-        public Item MatureItem(Item item)
+        public Item Mature(Item item)
         {
             if (this.strategies.TryGetValue(item.Name, out var strategy))
             {
