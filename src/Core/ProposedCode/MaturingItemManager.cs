@@ -32,7 +32,7 @@ namespace GildedRoseKata.ProposedCode
                 };
             }
 
-            // Handle case where item type doesn't have a strategy
+            // Case where item type doesn't have a strategy
             return item;
         }
     }
