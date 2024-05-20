@@ -45,7 +45,7 @@ namespace GildedRoseKata.ProposedCode.Tests
             var result = quality.Decrease();
 
             result.value.Should().Be(expectedResult);
-            result.Should().NotBeSameAs(expectedResult);
+            result.Should().NotBeSameAs(quality);
         }
 
         [Theory]
@@ -57,7 +57,7 @@ namespace GildedRoseKata.ProposedCode.Tests
             var result = quality.Increase();
 
             result.value.Should().Be(expectedResult);
-            result.Should().NotBeSameAs(expectedResult);
+            result.Should().NotBeSameAs(quality);
         }
 
         [Theory]
@@ -71,7 +71,7 @@ namespace GildedRoseKata.ProposedCode.Tests
             var result = quality.DecreaseBy(step);
 
             result.value.Should().Be(expectedResult);
-            result.Should().NotBeSameAs(expectedResult);
+            result.Should().NotBeSameAs(quality);
         }
 
         [Theory]
@@ -85,7 +85,7 @@ namespace GildedRoseKata.ProposedCode.Tests
             var result = quality.IncreaseBy(step);
 
             result.value.Should().Be(expectedResult);
-            result.Should().NotBeSameAs(expectedResult);
+            result.Should().NotBeSameAs(quality);
         }
     }
 }
