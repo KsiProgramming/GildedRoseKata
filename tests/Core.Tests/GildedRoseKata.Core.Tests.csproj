@@ -25,4 +25,9 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ProposedCode\MaturingStrategies\" />
+    <Folder Include="ProposedCode\Domain\" />
+  </ItemGroup>
+
 </Project>
