@@ -17,6 +17,9 @@
     <!-- Enable implict usings -->
     <ImplicitUsings>enable</ImplicitUsings>
 
+    <!-- Treat Warnings As Errors -->
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+
     <!-- Disable the Analyzers in Release configuration -->
     <RunAnalyzers Condition="'$(Configuration)' == 'Release'">false</RunAnalyzers>
   </PropertyGroup>
