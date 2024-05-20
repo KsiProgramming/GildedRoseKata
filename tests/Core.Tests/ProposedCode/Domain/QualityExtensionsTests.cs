@@ -59,5 +59,33 @@ namespace GildedRoseKata.ProposedCode.Tests
             result.value.Should().Be(expectedResult);
             result.Should().NotBeSameAs(expectedResult);
         }
+
+        [Theory]
+        [InlineData(5, 1, 4)]
+        [InlineData(5, 0, 5)]
+        [InlineData(5, -1, 6)]
+        public void DecreaseBy(int qualityValue, int step, int expectedResult)
+        {
+            var quality = new Quality(qualityValue);
+
+            var result = quality.DecreaseBy(step);
+
+            result.value.Should().Be(expectedResult);
+            result.Should().NotBeSameAs(expectedResult);
+        }
+
+        [Theory]
+        [InlineData(5, 1, 6)]
+        [InlineData(5, 0, 5)]
+        [InlineData(5, -1, 4)]
+        public void IncreaseBy(int qualityValue, int step, int expectedResult)
+        {
+            var quality = new Quality(qualityValue);
+
+            var result = quality.IncreaseBy(step);
+
+            result.value.Should().Be(expectedResult);
+            result.Should().NotBeSameAs(expectedResult);
+        }
     }
 }
