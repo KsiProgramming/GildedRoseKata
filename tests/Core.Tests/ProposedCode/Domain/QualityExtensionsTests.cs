@@ -47,5 +47,17 @@ namespace GildedRoseKata.ProposedCode.Tests
             result.value.Should().Be(expectedResult);
             result.Should().NotBeSameAs(expectedResult);
         }
+
+        [Theory]
+        [InlineData(5, 6)]
+        public void Increase(int qualityValue, int expectedResult)
+        {
+            var quality = new Quality(qualityValue);
+
+            var result = quality.Increase();
+
+            result.value.Should().Be(expectedResult);
+            result.Should().NotBeSameAs(expectedResult);
+        }
     }
 }
