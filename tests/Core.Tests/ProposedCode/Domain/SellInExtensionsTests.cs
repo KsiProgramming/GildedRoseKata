@@ -34,5 +34,18 @@ namespace GildedRoseKata.ProposedCode.Tests
 
             result.Should().Be(expectedResult);
         }
+
+        [Theory]
+        [InlineData(20, 50, true)]
+        [InlineData(50, 50, false)]
+        [InlineData(60, 50, false)]
+        public void IsBelowLimit(int sellInValue, int limit, bool expectedResult)
+        {
+            var sellIn = new SellIn(sellInValue);
+
+            var result = sellIn.IsBelowLimit(limit);
+
+            result.Should().Be(expectedResult);
+        }
     }
 }
