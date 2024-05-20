@@ -12,14 +12,27 @@ namespace GildedRoseKata.ProposedCode.Tests
     {
         [Theory]
         [InlineData(5, 4)]
-        public void Decrease(int qualityValue, int expectedResult)
+        public void Decrease(int sellInValue, int expectedResult)
         {
-            var quality = new Quality(qualityValue);
+            var sellIn = new SellIn(sellInValue);
 
-            var result = quality.Decrease();
+            var result = sellIn.Decrease();
 
             result.value.Should().Be(expectedResult);
-            result.Should().NotBeSameAs(quality);
+            result.Should().NotBeSameAs(sellIn);
+        }
+
+        [Theory]
+        [InlineData(1, false)]
+        [InlineData(0, true)]
+        [InlineData(-1, true)]
+        public void HasExpired(int sellInValue, bool expectedResult)
+        {
+            var sellIn = new SellIn(sellInValue);
+
+            var result = sellIn.HasExpired();
+
+            result.Should().Be(expectedResult);
         }
     }
 }
