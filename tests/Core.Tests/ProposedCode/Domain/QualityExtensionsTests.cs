@@ -22,5 +22,18 @@ namespace GildedRoseKata.ProposedCode.Tests
 
             result.Should().Be(expectedResult);
         }
+
+        [Theory]
+        [InlineData(5, 0, true)]
+        [InlineData(0, 0, false)]
+        [InlineData(-5, 0, false)]
+        public void IsAboveMinimum(int qualityValue, int minimum, bool expectedResult)
+        {
+            var quality = new Quality(qualityValue);
+
+            var result = quality.IsAboveMinimum(minimum);
+
+            result.Should().Be(expectedResult);
+        }
     }
 }
