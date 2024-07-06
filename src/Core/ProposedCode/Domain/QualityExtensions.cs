@@ -20,7 +20,7 @@ namespace GildedRoseKata.ProposedCode
 
         public static Quality DecreaseBy(this Quality quality, int value)
         {
-            return new Quality(quality.value - value);
+            return quality with { value = quality.value - value };
         }
 
         public static Quality Increase(this Quality quality)
@@ -30,7 +30,7 @@ namespace GildedRoseKata.ProposedCode
 
         public static Quality IncreaseBy(this Quality quality, int value)
         {
-            return new Quality(quality.value + value);
+            return quality with { value = quality.value + value };
         }
 
         public static bool IsAboveMinimum(this Quality quality, int minimum)

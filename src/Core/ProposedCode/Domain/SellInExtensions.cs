@@ -10,7 +10,7 @@ namespace GildedRoseKata.ProposedCode
     {
         public static SellIn Decrease(this SellIn sellIn)
         {
-            return new SellIn(sellIn.value - 1);
+            return sellIn with { value = sellIn.value - 1 };
         }
 
         public static bool HasExpired(this SellIn sellIn)
