@@ -27,10 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ProposedCode\MaturingStrategies\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\src\Core\GildedRoseKata.Core.csproj" />
   </ItemGroup>
 

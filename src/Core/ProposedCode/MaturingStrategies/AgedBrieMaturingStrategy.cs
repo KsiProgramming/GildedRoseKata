@@ -6,7 +6,7 @@
 
 namespace GildedRoseKata.ProposedCode.MaturingStrategies
 {
-    internal class AgedBrieMaturingStrategy : IItemMaturingStrategy
+    public class AgedBrieMaturingStrategy : IItemMaturingStrategy
     {
         public ItemMaturingResponse Update(ItemMaturingRequest request)
         {
