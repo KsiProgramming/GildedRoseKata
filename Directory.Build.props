@@ -26,21 +26,10 @@
     <!-- Disable the Analyzers in Release configuration -->
     <RunAnalyzers Condition="'$(Configuration)' == 'Release'">false</RunAnalyzers>
   </PropertyGroup>
-
-  <!-- Common files -->
-  <ItemGroup>
-    <AdditionalFiles Include="..\..\stylecop.json">
-      <Link>stylecop.json</Link>
-    </AdditionalFiles>
-  </ItemGroup>
-
+  
   <!-- Common NuGet packages -->
   <ItemGroup>
     <PackageReference Include="SonarAnalyzer.CSharp" Version="9.25.0.90414">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
