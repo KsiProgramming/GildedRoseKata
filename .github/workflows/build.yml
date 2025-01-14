@@ -6,7 +6,7 @@ on:
       dotnet-version:
         type: string
         required: true
-        default: 8.0.x
+        default: 9.0.x
 
 jobs:
   build:
