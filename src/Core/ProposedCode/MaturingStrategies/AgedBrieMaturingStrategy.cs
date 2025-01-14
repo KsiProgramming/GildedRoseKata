@@ -8,6 +8,8 @@ namespace GildedRoseKata.ProposedCode.MaturingStrategies;
 
 public class AgedBrieMaturingStrategy : IItemMaturingStrategy
 {
+    public string ItemName => "AgedBrie";
+
     public ItemMaturingResponse Update(ItemMaturingRequest request)
     {
         var newQuality = request.Quality;

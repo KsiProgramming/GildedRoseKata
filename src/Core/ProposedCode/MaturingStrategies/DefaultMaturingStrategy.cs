@@ -8,6 +8,8 @@ namespace GildedRoseKata.ProposedCode.MaturingStrategies;
 
 public class DefaultMaturingStrategy : IItemMaturingStrategy
 {
+    public string ItemName => "Default";
+
     public ItemMaturingResponse Update(ItemMaturingRequest request)
     {
         var newQuality = request.Quality;

@@ -8,6 +8,8 @@ namespace GildedRoseKata.ProposedCode.MaturingStrategies;
 
 public class BackstageMaturingStrategy : IItemMaturingStrategy
 {
+    public string ItemName => "Backstage";
+
     public ItemMaturingResponse Update(ItemMaturingRequest request)
     {
         var newQuality = this.UpdateQuality(request.Quality, request.SellIn);

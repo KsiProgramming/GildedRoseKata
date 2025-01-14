@@ -8,6 +8,8 @@ namespace GildedRoseKata.ProposedCode.MaturingStrategies;
 
 public class ConjuredMaturingStrategy : IItemMaturingStrategy
 {
+    public string ItemName => "Conjured";
+
     public ItemMaturingResponse Update(ItemMaturingRequest request)
     {
         var newQuality = request.Quality;
