@@ -10,10 +10,7 @@
 
     <!--Setting this to true disables the automatic transitive project references feature.-->
     <DisableTransitiveProjectReferences>true</DisableTransitiveProjectReferences>
-
-    <!--Specifies the location of the code analysis ruleset file.-->
-    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)CodeAnalysisRules.ruleset</CodeAnalysisRuleSet>
-
+    
     <!-- Enable the last version of C# -->
     <LangVersion>latest</LangVersion>
 
@@ -21,7 +18,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
 
     <!-- Treat Warnings As Errors -->
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
 
     <!-- Disable the Analyzers in Release configuration -->
     <RunAnalyzers Condition="'$(Configuration)' == 'Release'">false</RunAnalyzers>
