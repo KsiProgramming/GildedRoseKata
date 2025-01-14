@@ -15,16 +15,16 @@ public class BackstageMaturingStrategyTests
     {
         var request = new ItemMaturingRequest
         {
-            quality = new (55),
-            sellIn = new (5),
+            Quality = new(55),
+            SellIn = new(5),
         };
 
         var strategy = new BackstageMaturingStrategy();
 
         var result = strategy.Update(request);
 
-        result.quality.value.Should().Be(55);
-        result.sellIn.value.Should().Be(4);
+        result.Quality.Value.Should().Be(55);
+        result.SellIn.Value.Should().Be(4);
     }
 
     [Fact]
@@ -32,16 +32,16 @@ public class BackstageMaturingStrategyTests
     {
         var request = new ItemMaturingRequest
         {
-            quality = new (55),
-            sellIn = new (1),
+            Quality = new(55),
+            SellIn = new(1),
         };
 
         var strategy = new BackstageMaturingStrategy();
 
         var result = strategy.Update(request);
 
-        result.quality.value.Should().Be(0);
-        result.sellIn.value.Should().Be(0);
+        result.Quality.Value.Should().Be(0);
+        result.SellIn.Value.Should().Be(0);
     }
 
     [Fact]
@@ -49,16 +49,16 @@ public class BackstageMaturingStrategyTests
     {
         var request = new ItemMaturingRequest
         {
-            quality = new (20),
-            sellIn = new (15),
+            Quality = new(20),
+            SellIn = new(15),
         };
 
         var strategy = new BackstageMaturingStrategy();
 
         var result = strategy.Update(request);
 
-        result.quality.value.Should().Be(21);
-        result.sellIn.value.Should().Be(14);
+        result.Quality.Value.Should().Be(21);
+        result.SellIn.Value.Should().Be(14);
     }
 
     [Fact]
@@ -66,16 +66,16 @@ public class BackstageMaturingStrategyTests
     {
         var request = new ItemMaturingRequest
         {
-            quality = new (20),
-            sellIn = new (10),
+            Quality = new(20),
+            SellIn = new(10),
         };
 
         var strategy = new BackstageMaturingStrategy();
 
         var result = strategy.Update(request);
 
-        result.quality.value.Should().Be(22);
-        result.sellIn.value.Should().Be(09);
+        result.Quality.Value.Should().Be(22);
+        result.SellIn.Value.Should().Be(09);
     }
 
     [Fact]
@@ -83,16 +83,16 @@ public class BackstageMaturingStrategyTests
     {
         var request = new ItemMaturingRequest
         {
-            quality = new (20),
-            sellIn = new (4),
+            Quality = new(20),
+            SellIn = new(4),
         };
 
         var strategy = new BackstageMaturingStrategy();
 
         var result = strategy.Update(request);
 
-        result.quality.value.Should().Be(23);
-        result.sellIn.value.Should().Be(03);
+        result.Quality.Value.Should().Be(23);
+        result.SellIn.Value.Should().Be(03);
     }
 
     [Fact]
@@ -100,15 +100,15 @@ public class BackstageMaturingStrategyTests
     {
         var request = new ItemMaturingRequest
         {
-            quality = new (20),
-            sellIn = new (1),
+            Quality = new(20),
+            SellIn = new(1),
         };
 
         var strategy = new BackstageMaturingStrategy();
 
         var result = strategy.Update(request);
 
-        result.quality.value.Should().Be(0);
-        result.sellIn.value.Should().Be(0);
+        result.Quality.Value.Should().Be(0);
+        result.SellIn.Value.Should().Be(0);
     }
 }

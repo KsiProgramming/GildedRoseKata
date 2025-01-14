@@ -18,7 +18,7 @@ namespace GildedRoseKata.ProposedCode.Tests
 
             var result = sellIn.Decrease();
 
-            result.value.Should().Be(expectedResult);
+            result.Value.Should().Be(expectedResult);
             result.Should().NotBeSameAs(sellIn);
         }
 

@@ -4,26 +4,25 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace GildedRoseKata.ProposedCode.MaturingStrategies
+namespace GildedRoseKata.ProposedCode.MaturingStrategies;
+
+public class ConjuredMaturingStrategy : IItemMaturingStrategy
 {
-    public class ConjuredMaturingStrategy : IItemMaturingStrategy
+    public ItemMaturingResponse Update(ItemMaturingRequest request)
     {
-        public ItemMaturingResponse Update(ItemMaturingRequest request)
+        var newQuality = request.Quality;
+        if (newQuality.IsAboveMinimum(0))
         {
-            var newQuality = request.quality;
-            if (newQuality.IsAboveMinimum(0))
-            {
-                newQuality = newQuality.DecreaseBy(2);
-            }
-
-            var newSellIn = request.sellIn.Decrease();
-
-            if (newSellIn.HasExpired() && newQuality.IsAboveMinimum(0))
-            {
-                newQuality = newQuality.DecreaseBy(2);
-            }
-
-            return new (newQuality, newSellIn);
+            newQuality = newQuality.DecreaseBy(2);
         }
+
+        var newSellIn = request.SellIn.Decrease();
+
+        if (newSellIn.HasExpired() && newQuality.IsAboveMinimum(0))
+        {
+            newQuality = newQuality.DecreaseBy(2);
+        }
+
+        return new(newQuality, newSellIn);
     }
 }

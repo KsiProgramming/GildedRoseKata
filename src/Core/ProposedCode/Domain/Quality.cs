@@ -4,7 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace GildedRoseKata.ProposedCode
-{
-    public record struct Quality(int value);
-}
+namespace GildedRoseKata.ProposedCode;
+
+public record struct Quality(int Value);

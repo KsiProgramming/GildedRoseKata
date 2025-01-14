@@ -15,16 +15,16 @@ public class ConjuredMaturingStrategyTests
     {
         var request = new ItemMaturingRequest
         {
-            quality = new (0),
-            sellIn = new (5),
+            Quality = new(0),
+            SellIn = new(5),
         };
 
         var strategy = new ConjuredMaturingStrategy();
 
         var result = strategy.Update(request);
 
-        result.quality.value.Should().Be(0);
-        result.sellIn.value.Should().Be(4);
+        result.Quality.Value.Should().Be(0);
+        result.SellIn.Value.Should().Be(4);
     }
 
     [Fact]
@@ -32,16 +32,16 @@ public class ConjuredMaturingStrategyTests
     {
         var request = new ItemMaturingRequest
         {
-            quality = new (5),
-            sellIn = new (5),
+            Quality = new(5),
+            SellIn = new(5),
         };
 
         var strategy = new ConjuredMaturingStrategy();
 
         var result = strategy.Update(request);
 
-        result.quality.value.Should().Be(3);
-        result.sellIn.value.Should().Be(4);
+        result.Quality.Value.Should().Be(3);
+        result.SellIn.Value.Should().Be(4);
     }
 
     [Fact]
@@ -49,15 +49,15 @@ public class ConjuredMaturingStrategyTests
     {
         var request = new ItemMaturingRequest
         {
-            quality = new (5),
-            sellIn = new (1),
+            Quality = new(5),
+            SellIn = new(1),
         };
 
         var strategy = new ConjuredMaturingStrategy();
 
         var result = strategy.Update(request);
 
-        result.quality.value.Should().Be(1);
-        result.sellIn.value.Should().Be(0);
+        result.Quality.Value.Should().Be(1);
+        result.SellIn.Value.Should().Be(0);
     }
 }

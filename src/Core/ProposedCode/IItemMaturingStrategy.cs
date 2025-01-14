@@ -4,10 +4,9 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace GildedRoseKata.ProposedCode
+namespace GildedRoseKata.ProposedCode;
+
+public interface IItemMaturingStrategy
 {
-    public interface IItemMaturingStrategy
-    {
-        ItemMaturingResponse Update(ItemMaturingRequest request);
-    }
+    ItemMaturingResponse Update(ItemMaturingRequest request);
 }

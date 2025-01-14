@@ -4,36 +4,35 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace GildedRoseKata.ProposedCode
+namespace GildedRoseKata.ProposedCode;
+
+using GildedRoseKata.OriginalCode;
+
+public class MaturingItemManager
 {
-    using GildedRoseKata.OriginalCode;
+    private readonly IDictionary<string, IItemMaturingStrategy> strategies;
 
-    public class MaturingItemManager
+    public MaturingItemManager(IDictionary<string, IItemMaturingStrategy> strategies)
     {
-        private readonly IDictionary<string, IItemMaturingStrategy> strategies;
+        this.strategies = strategies;
+    }
 
-        public MaturingItemManager(IDictionary<string, IItemMaturingStrategy> strategies)
+    public Item Mature(Item item)
+    {
+        if (this.strategies.TryGetValue(item.Name, out var strategy))
         {
-            this.strategies = strategies;
-        }
+            var request = new ItemMaturingRequest(new Quality(item.Quality), new SellIn(item.SellIn));
+            var response = strategy.Update(request);
 
-        public Item Mature(Item item)
-        {
-            if (this.strategies.TryGetValue(item.Name, out var strategy))
+            return new()
             {
-                var request = new ItemMaturingRequest(new Quality(item.Quality), new SellIn(item.SellIn));
-                var response = strategy.Update(request);
-
-                return new ()
-                {
-                    Name = item.Name,
-                    Quality = response.quality.value,
-                    SellIn = response.sellIn.value,
-                };
-            }
-
-            // Case where item type doesn't have a strategy
-            return item;
+                Name = item.Name,
+                Quality = response.Quality.Value,
+                SellIn = response.SellIn.Value,
+            };
         }
+
+        // Case where item type doesn't have a strategy
+        return item;
     }
 }

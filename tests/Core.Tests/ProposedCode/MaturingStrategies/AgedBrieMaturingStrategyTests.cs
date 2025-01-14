@@ -15,16 +15,16 @@ public class AgedBrieMaturingStrategyTests
     {
         var request = new ItemMaturingRequest
         {
-            quality = new (55),
-            sellIn = new (4),
+            Quality = new(55),
+            SellIn = new(4),
         };
 
         var strategy = new AgedBrieMaturingStrategy();
 
         var result = strategy.Update(request);
 
-        result.quality.value.Should().Be(55);
-        result.sellIn.value.Should().Be(3);
+        result.Quality.Value.Should().Be(55);
+        result.SellIn.Value.Should().Be(3);
     }
 
     [Fact]
@@ -32,16 +32,16 @@ public class AgedBrieMaturingStrategyTests
     {
         var request = new ItemMaturingRequest
         {
-            quality = new (20),
-            sellIn = new (4),
+            Quality = new(20),
+            SellIn = new(4),
         };
 
         var strategy = new AgedBrieMaturingStrategy();
 
         var result = strategy.Update(request);
 
-        result.quality.value.Should().Be(21);
-        result.sellIn.value.Should().Be(3);
+        result.Quality.Value.Should().Be(21);
+        result.SellIn.Value.Should().Be(3);
     }
 
     [Fact]
@@ -49,15 +49,15 @@ public class AgedBrieMaturingStrategyTests
     {
         var request = new ItemMaturingRequest
         {
-            quality = new (20),
-            sellIn = new (0),
+            Quality = new(20),
+            SellIn = new(0),
         };
 
         var strategy = new AgedBrieMaturingStrategy();
 
         var result = strategy.Update(request);
 
-        result.quality.value.Should().Be(22);
-        result.sellIn.value.Should().Be(-1);
+        result.Quality.Value.Should().Be(22);
+        result.SellIn.Value.Should().Be(-1);
     }
 }

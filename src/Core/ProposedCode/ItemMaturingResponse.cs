@@ -4,7 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace GildedRoseKata.ProposedCode
-{
-    public record struct ItemMaturingResponse(Quality quality, SellIn sellIn);
-}
+namespace GildedRoseKata.ProposedCode;
+
+public record struct ItemMaturingResponse(Quality Quality, SellIn SellIn);

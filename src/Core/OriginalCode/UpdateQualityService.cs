@@ -8,7 +8,7 @@ namespace GildedRoseKata.OriginalCode;
 
 public class UpdateQualityService(IList<Item> items)
 {
-#pragma warning disable S1066, S1764
+#pragma warning disable  
     public void UpdateQuality()
     {
         for (var i = 0; i < items.Count; i++)
@@ -84,5 +84,5 @@ public class UpdateQualityService(IList<Item> items)
             }
         }
     }
-#pragma warning restore S1066, S1764
+#pragma warning restore
 }

@@ -4,41 +4,40 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace GildedRoseKata.ProposedCode.MaturingStrategies
+namespace GildedRoseKata.ProposedCode.MaturingStrategies;
+
+public class BackstageMaturingStrategy : IItemMaturingStrategy
 {
-    public class BackstageMaturingStrategy : IItemMaturingStrategy
+    public ItemMaturingResponse Update(ItemMaturingRequest request)
     {
-        public ItemMaturingResponse Update(ItemMaturingRequest request)
+        var newQuality = this.UpdateQuality(request.Quality, request.SellIn);
+
+        var newSellIn = request.SellIn.Decrease();
+        if (newSellIn.HasExpired())
         {
-            var newQuality = this.UpdateQuality(request.quality, request.sellIn);
-
-            var newSellIn = request.sellIn.Decrease();
-            if (newSellIn.HasExpired())
-            {
-                newQuality = new Quality(0);
-            }
-
-            return new (newQuality, newSellIn);
+            newQuality = new Quality(0);
         }
 
-        private Quality UpdateQuality(Quality quality, SellIn sellIn)
+        return new(newQuality, newSellIn);
+    }
+
+    private Quality UpdateQuality(Quality quality, SellIn sellIn)
+    {
+        if (quality.IsBelowLimit(50) && sellIn.IsBelowLimit(6))
         {
-            if (quality.IsBelowLimit(50) && sellIn.IsBelowLimit(6))
-            {
-                return quality.IncreaseBy(3);
-            }
-
-            if (quality.IsBelowLimit(50) && sellIn.IsBelowLimit(11))
-            {
-                return quality.IncreaseBy(2);
-            }
-
-            if (quality.IsBelowLimit(50))
-            {
-                return quality.Increase();
-            }
-
-            return quality;
+            return quality.IncreaseBy(3);
         }
+
+        if (quality.IsBelowLimit(50) && sellIn.IsBelowLimit(11))
+        {
+            return quality.IncreaseBy(2);
+        }
+
+        if (quality.IsBelowLimit(50))
+        {
+            return quality.Increase();
+        }
+
+        return quality;
     }
 }
