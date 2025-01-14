@@ -4,6 +4,9 @@
   <PropertyGroup>
     <!--Target Framework version.-->
     <TargetFramework>net8.0</TargetFramework>
+
+    <!--Root namespace.-->
+    <RootNamespace>GildedRoseKata</RootNamespace>
     
     <!--Setting this to true enables the usage of the latest version of C# language features.-->
     <AcceleratBuilnInVisualStudio>true</AcceleratBuilnInVisualStudio>
@@ -17,6 +20,9 @@
     <!-- Enable implict usings -->
     <ImplicitUsings>enable</ImplicitUsings>
 
+    <!-- Enable nullable usings -->
+    <Nullable>enable</Nullable>
+
     <!-- Treat Warnings As Errors -->
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
 
@@ -26,7 +32,11 @@
   
   <!-- Common NuGet packages -->
   <ItemGroup>
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="9.25.0.90414">
+    <PackageReference Include="Roslynator.Analyzers" Version="4.12.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.5.0.109200">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
