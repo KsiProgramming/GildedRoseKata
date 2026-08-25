@@ -8,5 +8,5 @@ namespace GildedRoseKata.ProposedCode;
 
 public interface IItemCategoryResolver
 {
-	ItemCategory Resolve(string itemName);
+    ItemCategory Resolve(string itemName);
 }

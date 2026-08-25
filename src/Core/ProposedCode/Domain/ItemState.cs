@@ -8,13 +8,13 @@ namespace GildedRoseKata.ProposedCode;
 
 public readonly record struct ItemState
 {
-	public ItemState(Quality quality, SellIn sellIn)
-	{
-		this.Quality = quality;
-		this.SellIn = sellIn;
-	}
+    public ItemState(Quality quality, SellIn sellIn)
+    {
+        this.Quality = quality;
+        this.SellIn = sellIn;
+    }
 
-	public Quality Quality { get; }
+    public Quality Quality { get; }
 
-	public SellIn SellIn { get; }
+    public SellIn SellIn { get; }
 }
