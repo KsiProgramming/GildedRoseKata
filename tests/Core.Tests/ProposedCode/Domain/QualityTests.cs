@@ -56,4 +56,12 @@ public class QualityTests
 
 		result.Value.Should().Be(0);
 	}
+
+	[Fact]
+	public void FromItemKind_WhenKindIsSulfuras_UsesLegendaryQuality()
+	{
+		var result = Quality.FromItemKind(new ItemKind.Sulfuras(), 12);
+
+		result.Value.Should().Be(Quality.Legendary);
+	}
 }

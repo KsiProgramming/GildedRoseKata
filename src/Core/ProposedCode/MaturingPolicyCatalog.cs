@@ -14,13 +14,13 @@ public class MaturingPolicyCatalog : IMaturingPolicyCatalog
 
     public MaturingPolicyCatalog(IEnumerable<IMaturingPolicy> policies)
     {
-        this.policiesByType = policies.ToDictionary(policy => policy.SupportedCategory.GetType());
+        this.policiesByType = policies.ToDictionary(policy => policy.SupportedKind.GetType());
     }
 
-    public IMaturingPolicy GetFor(ItemCategory category)
+    public IMaturingPolicy GetFor(ItemKind kind)
     {
-        return this.policiesByType.TryGetValue(category.GetType(), out var policy)
+        return this.policiesByType.TryGetValue(kind.GetType(), out var policy)
             ? policy
-            : this.policiesByType[typeof(ItemCategory.Standard)];
+            : this.policiesByType[typeof(ItemKind.Standard)];
     }
 }

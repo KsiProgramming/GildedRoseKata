@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------
-// <copyright file="MaturingItemManagerTests.cs" company="KsiProgramming">
+// <copyright file="ItemMaturationServiceTests.cs" company="KsiProgramming">
 //     Copyright (c) KsiProgramming. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -10,7 +10,7 @@ using FluentAssertions;
 using GildedRoseKata.OriginalCode;
 using GildedRoseKata.ProposedCode.MaturingStrategies;
 
-public class MaturingItemManagerTests
+public class ItemMaturationServiceTests
 {
     private static readonly IMaturingPolicy[] Policies =
     [
@@ -24,7 +24,7 @@ public class MaturingItemManagerTests
     [Fact]
     public void Mature_WhenItemNameIsUnknown_UsesStandardPolicy()
     {
-        var manager = new MaturingItemManager(Policies);
+        var service = new ItemMaturationService(Policies);
         var item = new Item
         {
             Name = "Elixir of the Mongoose",
@@ -32,7 +32,7 @@ public class MaturingItemManagerTests
             SellIn = 5,
         };
 
-        var result = manager.Mature(item);
+        var result = service.Mature(item);
 
         result.Quality.Should().Be(9);
         result.SellIn.Should().Be(4);
@@ -41,7 +41,7 @@ public class MaturingItemManagerTests
     [Fact]
     public void Mature_WhenItemIsAgedBrie_UsesSpecificPolicy()
     {
-        var manager = new MaturingItemManager(Policies);
+        var service = new ItemMaturationService(Policies);
         var item = new Item
         {
             Name = "Aged Brie",
@@ -49,7 +49,7 @@ public class MaturingItemManagerTests
             SellIn = 2,
         };
 
-        var result = manager.Mature(item);
+        var result = service.Mature(item);
 
         result.Quality.Should().Be(11);
         result.SellIn.Should().Be(1);
@@ -58,7 +58,7 @@ public class MaturingItemManagerTests
     [Fact]
     public void Mature_WhenItemIsSulfuras_LeavesItUntouched()
     {
-        var manager = new MaturingItemManager(Policies);
+        var service = new ItemMaturationService(Policies);
         var item = new Item
         {
             Name = "Sulfuras, Hand of Ragnaros",
@@ -66,7 +66,7 @@ public class MaturingItemManagerTests
             SellIn = 0,
         };
 
-        var result = manager.Mature(item);
+        var result = service.Mature(item);
 
         result.Quality.Should().Be(80);
         result.SellIn.Should().Be(0);

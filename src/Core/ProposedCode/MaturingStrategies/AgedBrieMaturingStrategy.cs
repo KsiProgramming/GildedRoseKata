@@ -8,7 +8,7 @@ namespace GildedRoseKata.ProposedCode.MaturingStrategies;
 
 public class AgedBrieMaturingStrategy : IMaturingPolicy
 {
-    public ItemCategory SupportedCategory => new ItemCategory.AgedBrie();
+    public ItemKind SupportedKind => new ItemKind.AgedBrie();
 
     public ItemState Mature(ItemState state)
     {

@@ -8,7 +8,7 @@ namespace GildedRoseKata.ProposedCode.MaturingStrategies;
 
 public class SulfurasMaturingStrategy : IMaturingPolicy
 {
-    public ItemCategory SupportedCategory => new ItemCategory.Sulfuras();
+    public ItemKind SupportedKind => new ItemKind.Sulfuras();
 
     public ItemState Mature(ItemState state)
     {

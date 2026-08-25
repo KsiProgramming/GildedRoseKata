@@ -12,6 +12,7 @@ public readonly record struct Quality
 {
     public const int Minimum = 0;
     public const int Maximum = 50;
+    public const int Legendary = 80;
 
     public Quality(int value)
     {
@@ -19,6 +20,13 @@ public readonly record struct Quality
     }
 
     public int Value { get; }
+
+    public static Quality FromItemKind(ItemKind kind, int value)
+    {
+        return kind is ItemKind.Sulfuras
+            ? new Quality(Legendary, allowLegendary: true)
+            : new Quality(value);
+    }
 
     public Quality Increase(int amount = 1)
     {
@@ -40,5 +48,12 @@ public readonly record struct Quality
         return amount < 0
             ? throw new ArgumentOutOfRangeException(nameof(amount), "Amount must be non-negative.")
             : amount;
+    }
+
+    private Quality(int value, bool allowLegendary)
+    {
+        this.Value = allowLegendary
+            ? Legendary
+            : Math.Clamp(value, Minimum, Maximum);
     }
 }

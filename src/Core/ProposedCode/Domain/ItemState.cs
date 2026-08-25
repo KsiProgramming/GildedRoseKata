@@ -17,4 +17,9 @@ public readonly record struct ItemState
     public Quality Quality { get; }
 
     public SellIn SellIn { get; }
+
+    public static ItemState Create(ItemKind kind, int quality, int sellIn)
+    {
+        return new ItemState(Quality.FromItemKind(kind, quality), new SellIn(sellIn));
+    }
 }

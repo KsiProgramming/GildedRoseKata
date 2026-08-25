@@ -8,7 +8,7 @@ namespace GildedRoseKata.ProposedCode.MaturingStrategies;
 
 public class DefaultMaturingStrategy : IMaturingPolicy
 {
-    public ItemCategory SupportedCategory => new ItemCategory.Standard();
+    public ItemKind SupportedKind => new ItemKind.Standard();
 
     public ItemState Mature(ItemState state)
     {

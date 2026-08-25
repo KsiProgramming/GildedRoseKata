@@ -8,5 +8,5 @@ namespace GildedRoseKata.ProposedCode;
 
 public interface IMaturingPolicyCatalog
 {
-    IMaturingPolicy GetFor(ItemCategory category);
+    IMaturingPolicy GetFor(ItemKind kind);
 }

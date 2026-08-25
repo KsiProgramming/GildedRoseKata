@@ -8,7 +8,7 @@ namespace GildedRoseKata.ProposedCode.MaturingStrategies;
 
 public class BackstageMaturingStrategy : IMaturingPolicy
 {
-    public ItemCategory SupportedCategory => new ItemCategory.Backstage();
+    public ItemKind SupportedKind => new ItemKind.Backstage();
 
     public ItemState Mature(ItemState state)
     {

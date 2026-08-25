@@ -8,7 +8,7 @@ namespace GildedRoseKata.ProposedCode.MaturingStrategies;
 
 public class ConjuredMaturingStrategy : IMaturingPolicy
 {
-    public ItemCategory SupportedCategory => new ItemCategory.Conjured();
+    public ItemKind SupportedKind => new ItemKind.Conjured();
 
     public ItemState Mature(ItemState state)
     {

@@ -1,12 +1,12 @@
 //-----------------------------------------------------------------------
-// <copyright file="IItemCategoryResolver.cs" company="KsiProgramming">
+// <copyright file="IItemKindResolver.cs" company="KsiProgramming">
 //     Copyright (c) KsiProgramming. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace GildedRoseKata.ProposedCode;
 
-public interface IItemCategoryResolver
+public interface IItemKindResolver
 {
-    ItemCategory Resolve(string itemName);
+    ItemKind Resolve(string itemName);
 }
