@@ -11,25 +11,24 @@ using GildedRoseKata.OriginalCode;
 public class ItemMaturationService
 {
     private readonly IItemKindResolver itemKindResolver;
-    private readonly IMaturingPolicyCatalog policyCatalog;
+    private readonly IMaturingPolicy maturingPolicy;
 
-    public ItemMaturationService(IEnumerable<IMaturingPolicy> policies)
-        : this(new ItemKindResolver(), new MaturingPolicyCatalog(policies))
+    public ItemMaturationService()
+        : this(new ItemKindResolver(), new ItemMaturingPolicy())
     {
     }
 
-    public ItemMaturationService(IItemKindResolver itemKindResolver, IMaturingPolicyCatalog policyCatalog)
+    public ItemMaturationService(IItemKindResolver itemKindResolver, IMaturingPolicy maturingPolicy)
     {
         this.itemKindResolver = itemKindResolver;
-        this.policyCatalog = policyCatalog;
+        this.maturingPolicy = maturingPolicy;
     }
 
     public Item Mature(Item item)
     {
         var kind = this.itemKindResolver.Resolve(item.Name);
-        var policy = this.policyCatalog.GetFor(kind);
         var state = ItemState.Create(kind, item.Quality, item.SellIn);
-        var maturedState = policy.Mature(state);
+        var maturedState = this.maturingPolicy.Mature(kind, state);
 
         return new()
         {

@@ -8,23 +8,13 @@ namespace GildedRoseKata.ProposedCode.Tests;
 
 using FluentAssertions;
 using GildedRoseKata.OriginalCode;
-using GildedRoseKata.ProposedCode.MaturingStrategies;
 
 public class ItemMaturationServiceTests
 {
-    private static readonly IMaturingPolicy[] Policies =
-    [
-        new DefaultMaturingStrategy(),
-        new AgedBrieMaturingStrategy(),
-        new BackstageMaturingStrategy(),
-        new ConjuredMaturingStrategy(),
-        new SulfurasMaturingStrategy(),
-    ];
-
     [Fact]
     public void Mature_WhenItemNameIsUnknown_UsesStandardPolicy()
     {
-        var service = new ItemMaturationService(Policies);
+        var service = new ItemMaturationService();
         var item = new Item
         {
             Name = "Elixir of the Mongoose",
@@ -41,7 +31,7 @@ public class ItemMaturationServiceTests
     [Fact]
     public void Mature_WhenItemIsAgedBrie_UsesSpecificPolicy()
     {
-        var service = new ItemMaturationService(Policies);
+        var service = new ItemMaturationService();
         var item = new Item
         {
             Name = "Aged Brie",
@@ -58,7 +48,7 @@ public class ItemMaturationServiceTests
     [Fact]
     public void Mature_WhenItemIsSulfuras_LeavesItUntouched()
     {
-        var service = new ItemMaturationService(Policies);
+        var service = new ItemMaturationService();
         var item = new Item
         {
             Name = "Sulfuras, Hand of Ragnaros",

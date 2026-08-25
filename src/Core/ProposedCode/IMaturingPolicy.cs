@@ -8,7 +8,5 @@ namespace GildedRoseKata.ProposedCode;
 
 public interface IMaturingPolicy
 {
-    ItemKind SupportedKind { get; }
-
-    ItemState Mature(ItemState state);
+    ItemState Mature(ItemKind kind, ItemState state);
 }
