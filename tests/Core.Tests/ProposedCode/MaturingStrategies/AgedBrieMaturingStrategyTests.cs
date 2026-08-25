@@ -11,51 +11,39 @@ using FluentAssertions;
 public class AgedBrieMaturingStrategyTests
 {
     [Fact]
-    public void Update()
+    public void Mature_WhenQualityIsAtMaximum_KeepsMaximum()
     {
-        var request = new ItemMaturingRequest
-        {
-            Quality = new(55),
-            SellIn = new(4),
-        };
+        var state = new ItemState(new Quality(50), new SellIn(4));
 
         var strategy = new AgedBrieMaturingStrategy();
 
-        var result = strategy.Update(request);
+        var result = strategy.Mature(state);
 
-        result.Quality.Value.Should().Be(55);
+        result.Quality.Value.Should().Be(50);
         result.SellIn.Value.Should().Be(3);
     }
 
     [Fact]
-    public void Update_WithQualityBelowLimit50()
+    public void Mature_WhenQualityBelowMaximum_IncreasesByOne()
     {
-        var request = new ItemMaturingRequest
-        {
-            Quality = new(20),
-            SellIn = new(4),
-        };
+        var state = new ItemState(new Quality(20), new SellIn(4));
 
         var strategy = new AgedBrieMaturingStrategy();
 
-        var result = strategy.Update(request);
+        var result = strategy.Mature(state);
 
         result.Quality.Value.Should().Be(21);
         result.SellIn.Value.Should().Be(3);
     }
 
     [Fact]
-    public void Update_WithQualityBelowLimit50AndSellInIsExpired()
+    public void Mature_WhenSellInBecomesExpired_IncreasesByTwo()
     {
-        var request = new ItemMaturingRequest
-        {
-            Quality = new(20),
-            SellIn = new(0),
-        };
+        var state = new ItemState(new Quality(20), new SellIn(0));
 
         var strategy = new AgedBrieMaturingStrategy();
 
-        var result = strategy.Update(request);
+        var result = strategy.Mature(state);
 
         result.Quality.Value.Should().Be(22);
         result.SellIn.Value.Should().Be(-1);

@@ -6,18 +6,18 @@
 
 namespace GildedRoseKata.ProposedCode.MaturingStrategies;
 
-public class BackstageMaturingStrategy : IItemMaturingStrategy
+public class BackstageMaturingStrategy : IMaturingPolicy
 {
-    public string ItemName => "Backstage";
+    public ItemCategory SupportedCategory => new ItemCategory.Backstage();
 
-    public ItemMaturingResponse Update(ItemMaturingRequest request)
+    public ItemState Mature(ItemState state)
     {
-        var newQuality = this.UpdateQuality(request.Quality, request.SellIn);
+        var newQuality = this.UpdateQuality(state.Quality, state.SellIn);
 
-        var newSellIn = request.SellIn.Decrease();
-        if (newSellIn.HasExpired())
+        var newSellIn = state.SellIn.NextDay();
+        if (newSellIn.IsExpired)
         {
-            newQuality = new Quality(0);
+            newQuality = newQuality.Reset();
         }
 
         return new(newQuality, newSellIn);
@@ -25,21 +25,16 @@ public class BackstageMaturingStrategy : IItemMaturingStrategy
 
     private Quality UpdateQuality(Quality quality, SellIn sellIn)
     {
-        if (quality.IsBelowLimit(50) && sellIn.IsBelowLimit(6))
+        if (sellIn.IsBelow(6))
         {
-            return quality.IncreaseBy(3);
+            return quality.Increase(3);
         }
 
-        if (quality.IsBelowLimit(50) && sellIn.IsBelowLimit(11))
+        if (sellIn.IsBelow(11))
         {
-            return quality.IncreaseBy(2);
+            return quality.Increase(2);
         }
 
-        if (quality.IsBelowLimit(50))
-        {
-            return quality.Increase();
-        }
-
-        return quality;
+        return quality.Increase();
     }
 }

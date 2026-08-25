@@ -6,23 +6,18 @@
 
 namespace GildedRoseKata.ProposedCode.MaturingStrategies;
 
-public class ConjuredMaturingStrategy : IItemMaturingStrategy
+public class ConjuredMaturingStrategy : IMaturingPolicy
 {
-    public string ItemName => "Conjured";
+    public ItemCategory SupportedCategory => new ItemCategory.Conjured();
 
-    public ItemMaturingResponse Update(ItemMaturingRequest request)
+    public ItemState Mature(ItemState state)
     {
-        var newQuality = request.Quality;
-        if (newQuality.IsAboveMinimum(0))
-        {
-            newQuality = newQuality.DecreaseBy(2);
-        }
+        var newQuality = state.Quality.Decrease(2);
+        var newSellIn = state.SellIn.NextDay();
 
-        var newSellIn = request.SellIn.Decrease();
-
-        if (newSellIn.HasExpired() && newQuality.IsAboveMinimum(0))
+        if (newSellIn.IsExpired)
         {
-            newQuality = newQuality.DecreaseBy(2);
+            newQuality = newQuality.Decrease(2);
         }
 
         return new(newQuality, newSellIn);

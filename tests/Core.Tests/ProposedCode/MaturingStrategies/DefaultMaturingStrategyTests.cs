@@ -11,53 +11,41 @@ using FluentAssertions;
 public class DefaultMaturingStrategyTests
 {
     [Fact]
-    public void Update()
+    public void Mature_WhenQualityIsAtMinimum_KeepsMinimum()
     {
-        var request = new ItemMaturingRequest
-        {
-            Quality = new(0),
-            SellIn = new(2),
-        };
+        var state = new ItemState(new Quality(0), new SellIn(2));
 
-        var stretagy = new DefaultMaturingStrategy();
+        var strategy = new DefaultMaturingStrategy();
 
-        var result = stretagy.Update(request);
+        var result = strategy.Mature(state);
 
         result.Quality.Value.Should().Be(0);
         result.SellIn.Value.Should().Be(1);
     }
 
     [Fact]
-    public void Update_WithQualityIsAboveMinimum()
+    public void Mature_WhenQualityIsAboveMinimum_DecreasesByOne()
     {
-        var request = new ItemMaturingRequest
-        {
-            Quality = new(1),
-            SellIn = new(2),
-        };
+        var state = new ItemState(new Quality(1), new SellIn(2));
 
-        var stretagy = new DefaultMaturingStrategy();
+        var strategy = new DefaultMaturingStrategy();
 
-        var result = stretagy.Update(request);
+        var result = strategy.Mature(state);
 
         result.Quality.Value.Should().Be(0);
         result.SellIn.Value.Should().Be(1);
     }
 
     [Fact]
-    public void Update_WithQualityIsAboveMinimumAndSellInIsExpired()
+    public void Mature_WhenSellInBecomesExpired_DecreasesByTwo()
     {
-        var request = new ItemMaturingRequest
-        {
-            Quality = new(1),
-            SellIn = new(1),
-        };
+        var state = new ItemState(new Quality(2), new SellIn(0));
 
-        var stretagy = new DefaultMaturingStrategy();
+        var strategy = new DefaultMaturingStrategy();
 
-        var result = stretagy.Update(request);
+        var result = strategy.Mature(state);
 
         result.Quality.Value.Should().Be(0);
-        result.SellIn.Value.Should().Be(0);
+        result.SellIn.Value.Should().Be(-1);
     }
 }

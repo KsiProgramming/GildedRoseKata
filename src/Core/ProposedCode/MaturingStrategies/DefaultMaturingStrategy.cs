@@ -6,21 +6,16 @@
 
 namespace GildedRoseKata.ProposedCode.MaturingStrategies;
 
-public class DefaultMaturingStrategy : IItemMaturingStrategy
+public class DefaultMaturingStrategy : IMaturingPolicy
 {
-    public string ItemName => "Default";
+    public ItemCategory SupportedCategory => new ItemCategory.Standard();
 
-    public ItemMaturingResponse Update(ItemMaturingRequest request)
+    public ItemState Mature(ItemState state)
     {
-        var newQuality = request.Quality;
-        if (newQuality.IsAboveMinimum(0))
-        {
-            newQuality = newQuality.Decrease();
-        }
+        var newQuality = state.Quality.Decrease();
+        var newSellIn = state.SellIn.NextDay();
 
-        var newSellIn = request.SellIn.Decrease();
-
-        if (newSellIn.HasExpired() && newQuality.IsAboveMinimum(0))
+        if (newSellIn.IsExpired)
         {
             newQuality = newQuality.Decrease();
         }

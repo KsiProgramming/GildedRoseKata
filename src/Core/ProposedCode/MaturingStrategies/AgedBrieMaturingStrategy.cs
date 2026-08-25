@@ -6,21 +6,16 @@
 
 namespace GildedRoseKata.ProposedCode.MaturingStrategies;
 
-public class AgedBrieMaturingStrategy : IItemMaturingStrategy
+public class AgedBrieMaturingStrategy : IMaturingPolicy
 {
-    public string ItemName => "AgedBrie";
+    public ItemCategory SupportedCategory => new ItemCategory.AgedBrie();
 
-    public ItemMaturingResponse Update(ItemMaturingRequest request)
+    public ItemState Mature(ItemState state)
     {
-        var newQuality = request.Quality;
-        if (newQuality.IsBelowLimit(50))
-        {
-            newQuality = newQuality.Increase();
-        }
+        var newQuality = state.Quality.Increase();
+        var newSellIn = state.SellIn.NextDay();
 
-        var newSellIn = request.SellIn.Decrease();
-
-        if (newQuality.IsBelowLimit(50) && newSellIn.HasExpired())
+        if (newSellIn.IsExpired)
         {
             newQuality = newQuality.Increase();
         }
