@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------
-// <copyright file="ItemKindResolverTests.cs" company="KsiProgramming">
+// <copyright file="ItemKindTests.cs" company="KsiProgramming">
 //     Copyright (c) KsiProgramming. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -8,10 +8,8 @@ namespace GildedRoseKata.ProposedCode.Tests;
 
 using FluentAssertions;
 
-public class ItemKindResolverTests
+public class ItemKindTests
 {
-    private readonly ItemKindResolver resolver = new();
-
     [Theory]
     [InlineData("Aged Brie", typeof(ItemKind.AgedBrie))]
     [InlineData("AgedBrie", typeof(ItemKind.AgedBrie))]
@@ -21,9 +19,9 @@ public class ItemKindResolverTests
     [InlineData("Conjured", typeof(ItemKind.Conjured))]
     [InlineData("Sulfuras, Hand of Ragnaros", typeof(ItemKind.Sulfuras))]
     [InlineData("Elixir of the Mongoose", typeof(ItemKind.Standard))]
-    public void Resolve_MapsNamesToExpectedKinds(string itemName, Type expectedType)
+    public void FromName_MapsNamesToExpectedKinds(string itemName, Type expectedType)
     {
-        var result = this.resolver.Resolve(itemName);
+        var result = ItemKind.FromName(itemName);
 
         result.Should().BeOfType(expectedType);
     }
