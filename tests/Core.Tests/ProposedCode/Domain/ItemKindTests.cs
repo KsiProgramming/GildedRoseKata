@@ -13,6 +13,8 @@ public class ItemKindTests
     [Theory]
     [InlineData("Aged Brie", typeof(ItemKind.AgedBrie))]
     [InlineData("AgedBrie", typeof(ItemKind.AgedBrie))]
+    [InlineData("Aged Cheddar", typeof(ItemKind.AgedCheddar))]
+    [InlineData("AgedCheddar", typeof(ItemKind.AgedCheddar))]
     [InlineData("Backstage passes to a TAFKAL80ETC concert", typeof(ItemKind.Backstage))]
     [InlineData("Backstage", typeof(ItemKind.Backstage))]
     [InlineData("Conjured Mana Cake", typeof(ItemKind.Conjured))]
