@@ -12,6 +12,8 @@ public abstract record ItemKind
 
     public sealed record AgedBrie : ItemKind;
 
+    public sealed record AgedCheddar : ItemKind;
+
     public sealed record Backstage : ItemKind;
 
     public sealed record Conjured : ItemKind;
@@ -24,6 +26,8 @@ public abstract record ItemKind
         {
             "Aged Brie" => new AgedBrie(),
             "AgedBrie" => new AgedBrie(),
+            "Aged Cheddar" => new AgedCheddar(),
+            "AgedCheddar" => new AgedCheddar(),
             "Backstage passes to a TAFKAL80ETC concert" => new Backstage(),
             "Backstage" => new Backstage(),
             "Conjured Mana Cake" => new Conjured(),
