@@ -44,6 +44,22 @@ public class ItemMaturingPolicyTests
     }
 
     [Theory]
+    [InlineData(20, 4, 21, 3)]
+    [InlineData(20, 0, 22, -1)]
+    [InlineData(49, 0, 50, -1)]
+    [InlineData(50, 4, 50, 3)]
+    [InlineData(50, 0, 50, -1)]
+    public void Mature_WhenKindIsAgedCheddar_FollowsExpectedRules(int quality, int sellIn, int expectedQuality, int expectedSellIn)
+    {
+        var state = new ItemState(new Quality(quality), new SellIn(sellIn));
+
+        var result = this.policy.Mature(new ItemKind.AgedCheddar(), state);
+
+        result.Quality.Value.Should().Be(expectedQuality);
+        result.SellIn.Value.Should().Be(expectedSellIn);
+    }
+
+    [Theory]
     [InlineData(20, 15, 21, 14)]
     [InlineData(20, 11, 21, 10)]
     [InlineData(20, 10, 22, 9)]
