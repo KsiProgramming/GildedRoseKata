@@ -5,6 +5,7 @@
 ## Table of Contents
 - [History](#history)
 - [Kata Description](#kata-description)
+- [Extension: Aged Wine](#extension-aged-wine)
 
 
 ## History
@@ -60,3 +61,13 @@ Just for clarification, an item can never have its Quality increase
 above 50, however "Sulfuras" is a legendary item and as such its 
 Quality is 80 and it never alters.
 
+## Extension: Aged Wine
+
+"Aged Wine" is an added product that matures like "Aged Brie":
+
+- Quality increases by 1 per day
+- Quality increases by 2 per day once the sell by date has passed
+- Quality is never more than 50
+- SellIn decreases by 1 per day
+
+The item is recognized by the names "Aged Wine" and "AgedWine".
