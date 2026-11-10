@@ -18,6 +18,8 @@ public class ItemKindTests
     [InlineData("Conjured Mana Cake", typeof(ItemKind.Conjured))]
     [InlineData("Conjured", typeof(ItemKind.Conjured))]
     [InlineData("Sulfuras, Hand of Ragnaros", typeof(ItemKind.Sulfuras))]
+    [InlineData("Vintage Wine", typeof(ItemKind.VintageWine))]
+    [InlineData("VintageWine", typeof(ItemKind.VintageWine))]
     [InlineData("Elixir of the Mongoose", typeof(ItemKind.Standard))]
     public void FromName_MapsNamesToExpectedKinds(string itemName, Type expectedType)
     {
