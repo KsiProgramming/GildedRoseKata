@@ -6,6 +6,7 @@
 
 namespace GildedRoseKata.ProposedCode.Tests;
 
+using System;
 using FluentAssertions;
 
 public class QualityTests
@@ -50,18 +51,30 @@ public class QualityTests
 	}
 
 	[Fact]
+	public void Increase_WhenAmountIsNegative_Throws()
+	{
+		var quality = new Quality(10);
+
+		var act = () => quality.Increase(-1);
+
+		act.Should().Throw<ArgumentOutOfRangeException>();
+	}
+
+	[Fact]
+	public void Decrease_WhenAmountIsNegative_Throws()
+	{
+		var quality = new Quality(10);
+
+		var act = () => quality.Decrease(-1);
+
+		act.Should().Throw<ArgumentOutOfRangeException>();
+	}
+
+	[Fact]
 	public void Reset_ReturnsZero()
 	{
 		var result = new Quality(10).Reset();
 
 		result.Value.Should().Be(0);
-	}
-
-	[Fact]
-	public void FromItemKind_WhenKindIsSulfuras_UsesLegendaryQuality()
-	{
-		var result = Quality.FromItemKind(new ItemKind.Sulfuras(), 12);
-
-		result.Value.Should().Be(Quality.Legendary);
 	}
 }

@@ -6,75 +6,45 @@
 
 namespace GildedRoseKata.ProposedCode;
 
+using System;
+
 public class ItemMaturingPolicy : IMaturingPolicy
 {
     public ItemState Mature(ItemKind kind, ItemState state)
     {
         return kind switch
         {
-            ItemKind.AgedBrie => this.MatureAgedBrie(state),
-            ItemKind.Backstage => this.MatureBackstage(state),
-            ItemKind.Conjured => this.MatureConjured(state),
+            ItemKind.AgedBrie => Age(state, s => s.Quality.Increase(), q => q.Increase()),
+            ItemKind.Backstage => Age(state, BackstageDailyChange, q => q.Reset()),
+            ItemKind.Conjured => Age(state, s => s.Quality.Decrease(2), q => q.Decrease(2)),
             ItemKind.Sulfuras => state,
-            _ => this.MatureStandard(state),
+            _ => Age(state, s => s.Quality.Decrease(), q => q.Decrease()),
         };
     }
 
-    private ItemState MatureStandard(ItemState state)
+    private static ItemState Age(
+        ItemState state,
+        Func<ItemState, Quality> dailyChange,
+        Func<Quality, Quality> expiredChange)
     {
-        var newQuality = state.Quality.Decrease();
+        var newQuality = dailyChange(state);
         var newSellIn = state.SellIn.NextDay();
 
         if (newSellIn.IsExpired)
         {
-            newQuality = newQuality.Decrease();
+            newQuality = expiredChange(newQuality);
         }
 
         return new(newQuality, newSellIn);
     }
 
-    private ItemState MatureAgedBrie(ItemState state)
+    private static Quality BackstageDailyChange(ItemState state)
     {
-        var newQuality = state.Quality.Increase();
-        var newSellIn = state.SellIn.NextDay();
-
-        if (newSellIn.IsExpired)
-        {
-            newQuality = newQuality.Increase();
-        }
-
-        return new(newQuality, newSellIn);
-    }
-
-    private ItemState MatureBackstage(ItemState state)
-    {
-        var newQuality = state.SellIn switch
+        return state.SellIn switch
         {
             _ when state.SellIn.IsBelow(6) => state.Quality.Increase(3),
             _ when state.SellIn.IsBelow(11) => state.Quality.Increase(2),
             _ => state.Quality.Increase(),
         };
-
-        var newSellIn = state.SellIn.NextDay();
-
-        if (newSellIn.IsExpired)
-        {
-            newQuality = newQuality.Reset();
-        }
-
-        return new(newQuality, newSellIn);
-    }
-
-    private ItemState MatureConjured(ItemState state)
-    {
-        var newQuality = state.Quality.Decrease(2);
-        var newSellIn = state.SellIn.NextDay();
-
-        if (newSellIn.IsExpired)
-        {
-            newQuality = newQuality.Decrease(2);
-        }
-
-        return new(newQuality, newSellIn);
     }
 }
