@@ -12,7 +12,7 @@ public class ItemMaturingPolicy : IMaturingPolicy
     {
         return kind switch
         {
-            ItemKind.AgedBrie => this.MatureAgedBrie(state),
+            ItemKind.AgedBrie or ItemKind.AgedWine => this.MatureAgedBrie(state),
             ItemKind.Backstage => this.MatureBackstage(state),
             ItemKind.Conjured => this.MatureConjured(state),
             ItemKind.Sulfuras => state,
