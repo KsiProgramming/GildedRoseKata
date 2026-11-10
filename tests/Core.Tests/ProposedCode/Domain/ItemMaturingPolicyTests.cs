@@ -17,6 +17,7 @@ public class ItemMaturingPolicyTests
     [InlineData(10, 5, 9, 4)]
     [InlineData(2, 0, 0, -1)]
     [InlineData(0, 0, 0, -1)]
+    [InlineData(10, -1, 8, -2)]
     public void Mature_WhenKindIsStandard_FollowsExpectedRules(int quality, int sellIn, int expectedQuality, int expectedSellIn)
     {
         var state = new ItemState(new Quality(quality), new SellIn(sellIn));
@@ -33,6 +34,7 @@ public class ItemMaturingPolicyTests
     [InlineData(49, 0, 50, -1)]
     [InlineData(50, 4, 50, 3)]
     [InlineData(50, 0, 50, -1)]
+    [InlineData(20, -1, 22, -2)]
     public void Mature_WhenKindIsAgedBrie_FollowsExpectedRules(int quality, int sellIn, int expectedQuality, int expectedSellIn)
     {
         var state = new ItemState(new Quality(quality), new SellIn(sellIn));
@@ -55,6 +57,9 @@ public class ItemMaturingPolicyTests
     [InlineData(49, 10, 50, 9)]
     [InlineData(49, 15, 50, 14)]
     [InlineData(50, 5, 50, 4)]
+    [InlineData(48, 5, 50, 4)]
+    [InlineData(50, 0, 0, -1)]
+    [InlineData(20, -1, 0, -2)]
     public void Mature_WhenKindIsBackstage_FollowsExpectedRules(int quality, int sellIn, int expectedQuality, int expectedSellIn)
     {
         var state = new ItemState(new Quality(quality), new SellIn(sellIn));
@@ -88,5 +93,16 @@ public class ItemMaturingPolicyTests
         var result = this.policy.Mature(new ItemKind.Sulfuras(), state);
 
         result.Should().Be(state);
+    }
+
+    [Fact]
+    public void Mature_WhenKindIsSulfurasWithNonZeroSellIn_PreservesProvidedState()
+    {
+        var state = ItemState.Create(new ItemKind.Sulfuras(), 10, 5);
+
+        var result = this.policy.Mature(new ItemKind.Sulfuras(), state);
+
+        result.Should().Be(state);
+        result.SellIn.Value.Should().Be(5);
     }
 }
