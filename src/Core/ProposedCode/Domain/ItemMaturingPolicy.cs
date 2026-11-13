@@ -15,6 +15,7 @@ public class ItemMaturingPolicy : IMaturingPolicy
             ItemKind.AgedBrie => this.MatureAgedBrie(state),
             ItemKind.Backstage => this.MatureBackstage(state),
             ItemKind.Conjured => this.MatureConjured(state),
+            ItemKind.VintageWine => this.MatureVintageWine(state),
             ItemKind.Sulfuras => state,
             _ => this.MatureStandard(state),
         };
@@ -74,6 +75,14 @@ public class ItemMaturingPolicy : IMaturingPolicy
         {
             newQuality = newQuality.Decrease(2);
         }
+
+        return new(newQuality, newSellIn);
+    }
+
+    private ItemState MatureVintageWine(ItemState state)
+    {
+        var newSellIn = state.SellIn.NextDay();
+        var newQuality = newSellIn.IsExpired ? state.Quality.Decrease(2) : state.Quality.Increase();
 
         return new(newQuality, newSellIn);
     }
