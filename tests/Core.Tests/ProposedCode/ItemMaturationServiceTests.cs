@@ -20,6 +20,10 @@ public class ItemMaturationServiceTests
     [InlineData("Conjured Mana Cake", 10, 5, 8, 4)]
     [InlineData("Conjured", 10, 0, 6, -1)]
     [InlineData("Sulfuras, Hand of Ragnaros", 80, 0, 80, 0)]
+    [InlineData("Vintage Wine", 10, 5, 11, 4)]
+    [InlineData("Wine", 10, 5, 11, 4)]
+    [InlineData("Vintage Wine", 10, 0, 8, -1)]
+    [InlineData("Wine", 10, 0, 8, -1)]
     public void Mature_UsesExpectedRulesForResolvedItemKinds(string name, int quality, int sellIn, int expectedQuality, int expectedSellIn)
     {
         var service = new ItemMaturationService();
