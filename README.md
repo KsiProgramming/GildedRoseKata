@@ -49,6 +49,12 @@ update to our system:
 
 - "Conjured" items degrade in Quality twice as fast as normal items
 
+We have also started stocking a new product that matures with age. This 
+requires another update to our system:
+
+- "Vintage Wine" (alias "Wine") increases in Quality by 1 each day, but 
+once the SellIn date has passed it loses 2 Quality per day instead
+
 Feel free to make any changes to the UpdateQuality method and add any 
 new code as long as everything still works correctly. However, do not 
 alter the Item class or Items property as those belong to the goblin 
@@ -59,4 +65,3 @@ method and Items property static if you like, we'll cover for you).
 Just for clarification, an item can never have its Quality increase 
 above 50, however "Sulfuras" is a legendary item and as such its 
 Quality is 80 and it never alters.
-
