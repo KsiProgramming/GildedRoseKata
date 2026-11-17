@@ -18,11 +18,23 @@ public class ItemKindTests
     [InlineData("Conjured Mana Cake", typeof(ItemKind.Conjured))]
     [InlineData("Conjured", typeof(ItemKind.Conjured))]
     [InlineData("Sulfuras, Hand of Ragnaros", typeof(ItemKind.Sulfuras))]
+    [InlineData("Bordeaux Wine", typeof(ItemKind.BordeauxWine))]
     [InlineData("Elixir of the Mongoose", typeof(ItemKind.Standard))]
     public void FromName_MapsNamesToExpectedKinds(string itemName, Type expectedType)
     {
         var result = ItemKind.FromName(itemName);
 
         result.Should().BeOfType(expectedType);
+    }
+
+    [Theory]
+    [InlineData("bordeaux wine")]
+    [InlineData("BordeauxWine")]
+    [InlineData(" Bordeaux Wine")]
+    public void FromName_WhenBordeauxWineNameIsNotExact_ResolvesToStandard(string itemName)
+    {
+        var result = ItemKind.FromName(itemName);
+
+        result.Should().BeOfType<ItemKind.Standard>();
     }
 }
