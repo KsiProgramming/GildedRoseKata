@@ -44,6 +44,28 @@ public class ItemMaturingPolicyTests
     }
 
     [Theory]
+    [InlineData(20, 10, 21, 9)]
+    [InlineData(20, 1, 21, 0)]
+    [InlineData(20, 0, 22, -1)]
+    [InlineData(20, -5, 22, -6)]
+    [InlineData(50, 10, 50, 9)]
+    [InlineData(50, -1, 50, -2)]
+    [InlineData(49, 10, 50, 9)]
+    [InlineData(49, -1, 50, -2)]
+    [InlineData(49, 0, 50, -1)]
+    [InlineData(0, 10, 1, 9)]
+    [InlineData(0, -1, 2, -2)]
+    public void Mature_WhenKindIsBordeauxWine_FollowsExpectedRules(int quality, int sellIn, int expectedQuality, int expectedSellIn)
+    {
+        var state = new ItemState(new Quality(quality), new SellIn(sellIn));
+
+        var result = this.policy.Mature(new ItemKind.BordeauxWine(), state);
+
+        result.Quality.Value.Should().Be(expectedQuality);
+        result.SellIn.Value.Should().Be(expectedSellIn);
+    }
+
+    [Theory]
     [InlineData(20, 15, 21, 14)]
     [InlineData(20, 11, 21, 10)]
     [InlineData(20, 10, 22, 9)]
