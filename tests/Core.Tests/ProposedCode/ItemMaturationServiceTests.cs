@@ -20,6 +20,14 @@ public class ItemMaturationServiceTests
     [InlineData("Conjured Mana Cake", 10, 5, 8, 4)]
     [InlineData("Conjured", 10, 0, 6, -1)]
     [InlineData("Sulfuras, Hand of Ragnaros", 80, 0, 80, 0)]
+    [InlineData("Vintage Wine", 10, 20, 11, 19)]
+    [InlineData("Vintage Wine", 10, 11, 11, 10)]
+    [InlineData("Vintage Wine", 10, 10, 12, 9)]
+    [InlineData("Vintage Wine", 10, 1, 12, 0)]
+    [InlineData("Vintage Wine", 10, 0, 12, -1)]
+    [InlineData("Vintage", 10, -5, 12, -6)]
+    [InlineData("Vintage Wine", 50, 20, 50, 19)]
+    [InlineData("Vintage Wine", 49, 5, 50, 4)]
     public void Mature_UsesExpectedRulesForResolvedItemKinds(string name, int quality, int sellIn, int expectedQuality, int expectedSellIn)
     {
         var service = new ItemMaturationService();
@@ -34,5 +42,21 @@ public class ItemMaturationServiceTests
 
         result.Quality.Should().Be(expectedQuality);
         result.SellIn.Should().Be(expectedSellIn);
+    }
+
+    [Fact]
+    public void Mature_WhenItemIsVintageWine_PreservesName()
+    {
+        var service = new ItemMaturationService();
+        var item = new Item
+        {
+            Name = "Vintage Wine",
+            Quality = 10,
+            SellIn = 20,
+        };
+
+        var result = service.Mature(item);
+
+        result.Name.Should().Be("Vintage Wine");
     }
 }

@@ -80,6 +80,26 @@ public class ItemMaturingPolicyTests
         result.SellIn.Value.Should().Be(expectedSellIn);
     }
 
+    [Theory]
+    [InlineData(10, 20, 11, 19)]
+    [InlineData(10, 11, 11, 10)]
+    [InlineData(10, 10, 12, 9)]
+    [InlineData(10, 1, 12, 0)]
+    [InlineData(10, 0, 12, -1)]
+    [InlineData(10, -5, 12, -6)]
+    [InlineData(50, 20, 50, 19)]
+    [InlineData(49, 5, 50, 4)]
+    [InlineData(49, 20, 50, 19)]
+    public void Mature_WhenKindIsVintageWine_FollowsExpectedRules(int quality, int sellIn, int expectedQuality, int expectedSellIn)
+    {
+        var state = new ItemState(new Quality(quality), new SellIn(sellIn));
+
+        var result = this.policy.Mature(new ItemKind.VintageWine(), state);
+
+        result.Quality.Value.Should().Be(expectedQuality);
+        result.SellIn.Value.Should().Be(expectedSellIn);
+    }
+
     [Fact]
     public void Mature_WhenKindIsSulfuras_PreservesProvidedState()
     {
