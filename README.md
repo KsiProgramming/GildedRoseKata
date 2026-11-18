@@ -60,3 +60,8 @@ Just for clarification, an item can never have its Quality increase
 above 50, however "Sulfuras" is a legendary item and as such its 
 Quality is 80 and it never alters.
 
+### Cellar-Aged Mead
+
+"Cellar-Aged Mead" is a premium maturing product recognised only by this 
+exact name. Its Quality increases by 1 per day, and by 2 per day once its 
+SellIn is 0 or lower, up to a maximum Quality of 50.
