@@ -16,6 +16,7 @@ public class ItemMaturingPolicy : IMaturingPolicy
             ItemKind.Backstage => this.MatureBackstage(state),
             ItemKind.Conjured => this.MatureConjured(state),
             ItemKind.Sulfuras => state,
+            ItemKind.MatureCheese => this.MatureMatureCheese(state),
             _ => this.MatureStandard(state),
         };
     }
@@ -73,6 +74,19 @@ public class ItemMaturingPolicy : IMaturingPolicy
         if (newSellIn.IsExpired)
         {
             newQuality = newQuality.Decrease(2);
+        }
+
+        return new(newQuality, newSellIn);
+    }
+
+    private ItemState MatureMatureCheese(ItemState state)
+    {
+        var newQuality = state.Quality.Increase();
+        var newSellIn = state.SellIn.NextDay();
+
+        if (newSellIn.IsExpired)
+        {
+            newQuality = newQuality.Increase();
         }
 
         return new(newQuality, newSellIn);
