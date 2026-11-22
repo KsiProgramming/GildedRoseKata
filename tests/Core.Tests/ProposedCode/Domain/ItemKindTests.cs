@@ -25,4 +25,23 @@ public class ItemKindTests
 
         result.Should().BeOfType(expectedType);
     }
+
+    [Fact]
+    public void AC001_RecognizesMatureCheeseWithValidQuality()
+    {
+        var result = ItemKind.FromName("Mature Cheese");
+
+        result.Should().BeOfType<ItemKind.MatureCheese>();
+    }
+
+    [Theory]
+    [InlineData("Mature cheese")]
+    [InlineData("Mature Cheeses")]
+    [InlineData("Mature Cheese ")]
+    public void AC007_RejectsSimilarButNotExactProductNames(string itemName)
+    {
+        var result = ItemKind.FromName(itemName);
+
+        result.Should().BeOfType<ItemKind.Standard>();
+    }
 }
