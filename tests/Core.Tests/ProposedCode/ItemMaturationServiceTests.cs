@@ -37,10 +37,10 @@ public class ItemMaturationServiceTests
     }
 
     [Fact]
-    public void Mature_UsesInjectedPolicyStateAndPreservesItemName()
+    public void Mature_UsesInjectedPolicyForCustomItemAndPreservesItemName()
     {
         const string itemName = "Custom item";
-        var service = new ItemMaturationService(new FixedMaturingPolicy(new ItemState(new Quality(17), new SellIn(3))));
+        var service = new ItemMaturationService(new CustomItemMaturingPolicy());
         var item = new Item
         {
             Name = itemName,
@@ -55,11 +55,15 @@ public class ItemMaturationServiceTests
         result.SellIn.Should().Be(3);
     }
 
-    private sealed class FixedMaturingPolicy(ItemState result) : IMaturingPolicy
+    private sealed class CustomItemMaturingPolicy : IMaturingPolicy
     {
         public ItemState Mature(ItemKind kind, ItemState state)
         {
-            return result;
+            return kind switch
+            {
+                ItemKind.CustomItem => new ItemState(new Quality(17), new SellIn(3)),
+                _ => state,
+            };
         }
     }
 }
