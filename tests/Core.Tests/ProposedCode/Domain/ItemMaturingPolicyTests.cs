@@ -80,6 +80,68 @@ public class ItemMaturingPolicyTests
         result.SellIn.Value.Should().Be(expectedSellIn);
     }
 
+    [Theory]
+    [InlineData(10, 5, 11, 4)]
+    [InlineData(10, 1, 11, 0)]
+    [InlineData(10, 0, 12, -1)]
+    [InlineData(10, -1, 12, -2)]
+    public void Mature_WhenKindIsMatureCheese_UsesPreDecrementSellIn(int quality, int sellIn, int expectedQuality, int expectedSellIn)
+    {
+        var state = new ItemState(new Quality(quality), new SellIn(sellIn));
+
+        var result = this.policy.Mature(new ItemKind.MatureCheese(), state);
+
+        result.Quality.Value.Should().Be(expectedQuality);
+        result.SellIn.Value.Should().Be(expectedSellIn);
+    }
+
+    [Theory]
+    [InlineData(49, 5, 50)]
+    [InlineData(49, 0, 50)]
+    [InlineData(50, 5, 50)]
+    [InlineData(50, 0, 50)]
+    [InlineData(0, 5, 1)]
+    [InlineData(1, 0, 3)]
+    public void Mature_WhenKindIsMatureCheese_ClampsQualityToZeroThroughFifty(int quality, int sellIn, int expectedQuality)
+    {
+        var state = new ItemState(new Quality(quality), new SellIn(sellIn));
+
+        var result = this.policy.Mature(new ItemKind.MatureCheese(), state);
+
+        result.Quality.Value.Should().Be(expectedQuality);
+        result.Quality.Value.Should().BeInRange(Quality.Minimum, Quality.Maximum);
+    }
+
+    [Theory]
+    [InlineData(-5, 5, 1)]
+    [InlineData(55, 5, 50)]
+    public void Mature_WhenKindIsMatureCheese_HandlesOutOfRangeLegacyQuality(int quality, int sellIn, int expectedQuality)
+    {
+        var state = new ItemState(new Quality(quality), new SellIn(sellIn));
+
+        var result = this.policy.Mature(new ItemKind.MatureCheese(), state);
+
+        result.Quality.Value.Should().Be(expectedQuality);
+        result.Quality.Value.Should().BeInRange(Quality.Minimum, Quality.Maximum);
+    }
+
+    [Fact]
+    public void Mature_WhenKindIsMatureCheese_UpdatesQualityAndSellInAcrossRepeatedDays()
+    {
+        var state = ItemState.Create(new ItemKind.MatureCheese(), 48, 1);
+
+        var firstDay = this.policy.Mature(new ItemKind.MatureCheese(), state);
+        var secondDay = this.policy.Mature(new ItemKind.MatureCheese(), firstDay);
+        var thirdDay = this.policy.Mature(new ItemKind.MatureCheese(), secondDay);
+
+        firstDay.Quality.Value.Should().Be(49);
+        firstDay.SellIn.Value.Should().Be(0);
+        secondDay.Quality.Value.Should().Be(50);
+        secondDay.SellIn.Value.Should().Be(-1);
+        thirdDay.Quality.Value.Should().Be(50);
+        thirdDay.SellIn.Value.Should().Be(-2);
+    }
+
     [Fact]
     public void Mature_WhenKindIsSulfuras_PreservesProvidedState()
     {

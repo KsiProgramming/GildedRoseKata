@@ -18,7 +18,11 @@ public class ItemKindTests
     [InlineData("Conjured Mana Cake", typeof(ItemKind.Conjured))]
     [InlineData("Conjured", typeof(ItemKind.Conjured))]
     [InlineData("Sulfuras, Hand of Ragnaros", typeof(ItemKind.Sulfuras))]
+    [InlineData("Mature Cheese", typeof(ItemKind.MatureCheese))]
     [InlineData("Elixir of the Mongoose", typeof(ItemKind.Standard))]
+    [InlineData("mature cheese", typeof(ItemKind.Standard))]
+    [InlineData("Mature Cheese ", typeof(ItemKind.Standard))]
+    [InlineData("Mature Cheeses", typeof(ItemKind.Standard))]
     public void FromName_MapsNamesToExpectedKinds(string itemName, Type expectedType)
     {
         var result = ItemKind.FromName(itemName);
