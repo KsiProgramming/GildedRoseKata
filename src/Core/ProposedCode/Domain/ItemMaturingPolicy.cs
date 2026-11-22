@@ -15,6 +15,7 @@ public class ItemMaturingPolicy : IMaturingPolicy
             ItemKind.AgedBrie => this.MatureAgedBrie(state),
             ItemKind.Backstage => this.MatureBackstage(state),
             ItemKind.Conjured => this.MatureConjured(state),
+            ItemKind.PhoenixFeather => this.MaturePhoenixFeather(state),
             ItemKind.Sulfuras => state,
             _ => this.MatureStandard(state),
         };
@@ -73,6 +74,19 @@ public class ItemMaturingPolicy : IMaturingPolicy
         if (newSellIn.IsExpired)
         {
             newQuality = newQuality.Decrease(2);
+        }
+
+        return new(newQuality, newSellIn);
+    }
+
+    private ItemState MaturePhoenixFeather(ItemState state)
+    {
+        var newQuality = state.Quality.Increase(2);
+        var newSellIn = state.SellIn.NextDay();
+
+        if (newSellIn.IsExpired)
+        {
+            newQuality = newQuality.Increase(2);
         }
 
         return new(newQuality, newSellIn);

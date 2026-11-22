@@ -20,6 +20,7 @@ public class ItemMaturationServiceTests
     [InlineData("Conjured Mana Cake", 10, 5, 8, 4)]
     [InlineData("Conjured", 10, 0, 6, -1)]
     [InlineData("Sulfuras, Hand of Ragnaros", 80, 0, 80, 0)]
+    [InlineData("Phoenix Feather", 10, 5, 12, 4)]
     public void Mature_UsesExpectedRulesForResolvedItemKinds(string name, int quality, int sellIn, int expectedQuality, int expectedSellIn)
     {
         var service = new ItemMaturationService();
@@ -32,6 +33,7 @@ public class ItemMaturationServiceTests
 
         var result = service.Mature(item);
 
+        result.Name.Should().Be(name);
         result.Quality.Should().Be(expectedQuality);
         result.SellIn.Should().Be(expectedSellIn);
     }
