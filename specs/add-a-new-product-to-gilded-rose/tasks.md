@@ -1,0 +1,7 @@
+# Tasks: Add Mature Cheese
+
+- [ ] T001 [P] Test exact `Mature Cheese` classification and similar-name exclusion in `tests/Core.Tests/ProposedCode/Domain/ItemKindTests.cs` (FR-001, FR-009, AC-001, AC-009)
+- [ ] T002 [P] Test Mature Cheese policy behavior for positive, zero, and negative `sellIn`, countdown, quality boundaries, invalid imported values, and repeated updates in `tests/Core.Tests/ProposedCode/Domain/ItemMaturingPolicyTests.cs` (FR-002–FR-008, FR-014–FR-016, AC-002–AC-008, AC-014–AC-016)
+- [ ] T003 [P] Test returned values, unchanged input items, multiple and consecutive updates in mixed inventories, and existing-product regressions in `tests/Core.Tests/ProposedCode/ItemMaturationServiceTests.cs` (FR-010–FR-013, FR-015, FR-018, AC-010–AC-013, AC-015, AC-018)
+- [ ] T004 [P] Add exact-name Mature Cheese classification in `src/Core/ProposedCode/Domain/ItemKind.cs` (FR-001, FR-009, FR-017, FR-019, AC-001, AC-009, AC-017, AC-019)
+- [ ] T005 Add the isolated Mature Cheese maturation rule, using the starting `sellIn` and existing quality normalization, in `src/Core/ProposedCode/Domain/ItemMaturingPolicy.cs` after T004 (FR-002–FR-008, FR-010, FR-012–FR-017, FR-019, AC-002–AC-008, AC-010, AC-012–AC-017, AC-019)

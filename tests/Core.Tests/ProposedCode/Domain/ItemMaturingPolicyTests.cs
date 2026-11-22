@@ -28,6 +28,56 @@ public class ItemMaturingPolicyTests
     }
 
     [Theory]
+    [InlineData(10, 5, 11, 4)]
+    [InlineData(10, 1, 11, 0)]
+    [InlineData(10, 0, 12, -1)]
+    [InlineData(10, -1, 12, -2)]
+    [InlineData(0, 0, 2, -1)]
+    [InlineData(49, 5, 50, 4)]
+    [InlineData(49, 0, 50, -1)]
+    [InlineData(50, 5, 50, 4)]
+    [InlineData(50, 0, 50, -1)]
+    public void Mature_WhenKindIsMatureCheese_FollowsExpectedRules(int quality, int sellIn, int expectedQuality, int expectedSellIn)
+    {
+        var state = new ItemState(new Quality(quality), new SellIn(sellIn));
+
+        var result = this.policy.Mature(new ItemKind.MatureCheese(), state);
+
+        result.Quality.Value.Should().Be(expectedQuality);
+        result.SellIn.Value.Should().Be(expectedSellIn);
+        result.Quality.Value.Should().BeInRange(Quality.Minimum, Quality.Maximum);
+    }
+
+    [Theory]
+    [InlineData(-5, 0, 2)]
+    [InlineData(55, 5, 50)]
+    public void Mature_WhenKindIsMatureCheese_NormalizesInvalidImportedQuality(int importedQuality, int sellIn, int expectedQuality)
+    {
+        var state = ItemState.Create(new ItemKind.MatureCheese(), importedQuality, sellIn);
+
+        var result = this.policy.Mature(new ItemKind.MatureCheese(), state);
+
+        result.Quality.Value.Should().Be(expectedQuality);
+        result.Quality.Value.Should().BeInRange(Quality.Minimum, Quality.Maximum);
+    }
+
+    [Fact]
+    public void Mature_WhenKindIsMatureCheese_AppliesRulesOnRepeatedUpdates()
+    {
+        var state = ItemState.Create(new ItemKind.MatureCheese(), 10, 2);
+
+        var firstDay = this.policy.Mature(new ItemKind.MatureCheese(), state);
+        var secondDay = this.policy.Mature(new ItemKind.MatureCheese(), firstDay);
+        var thirdDay = this.policy.Mature(new ItemKind.MatureCheese(), secondDay);
+        var fourthDay = this.policy.Mature(new ItemKind.MatureCheese(), thirdDay);
+
+        firstDay.Should().Be(new ItemState(new Quality(11), new SellIn(1)));
+        secondDay.Should().Be(new ItemState(new Quality(12), new SellIn(0)));
+        thirdDay.Should().Be(new ItemState(new Quality(14), new SellIn(-1)));
+        fourthDay.Should().Be(new ItemState(new Quality(16), new SellIn(-2)));
+    }
+
+    [Theory]
     [InlineData(20, 4, 21, 3)]
     [InlineData(20, 0, 22, -1)]
     [InlineData(49, 0, 50, -1)]
