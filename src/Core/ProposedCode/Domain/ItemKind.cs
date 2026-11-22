@@ -20,8 +20,6 @@ public abstract record ItemKind
 
     public sealed record Sulfuras : ItemKind;
 
-    public sealed record PhoenixFeather : ItemKind;
-
     public static ItemKind FromName(string itemName)
     {
         return itemName switch
@@ -34,7 +32,6 @@ public abstract record ItemKind
             "Conjured" => new Conjured(),
             "Phoenix Feather" => new PhoenixFeather(),
             "Sulfuras, Hand of Ragnaros" => new Sulfuras(),
-            "Phoenix Feather" => new PhoenixFeather(),
             _ => new Standard(),
         };
     }
