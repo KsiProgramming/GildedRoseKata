@@ -16,6 +16,8 @@ public abstract record ItemKind
 
     public sealed record Conjured : ItemKind;
 
+    public sealed record PhoenixFeather : ItemKind;
+
     public sealed record Sulfuras : ItemKind;
 
     public static ItemKind FromName(string itemName)
@@ -28,6 +30,7 @@ public abstract record ItemKind
             "Backstage" => new Backstage(),
             "Conjured Mana Cake" => new Conjured(),
             "Conjured" => new Conjured(),
+            "Phoenix Feather" => new PhoenixFeather(),
             "Sulfuras, Hand of Ragnaros" => new Sulfuras(),
             _ => new Standard(),
         };
