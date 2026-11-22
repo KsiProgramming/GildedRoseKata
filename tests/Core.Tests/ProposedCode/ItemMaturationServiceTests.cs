@@ -35,4 +35,31 @@ public class ItemMaturationServiceTests
         result.Quality.Should().Be(expectedQuality);
         result.SellIn.Should().Be(expectedSellIn);
     }
+
+    [Fact]
+    public void Mature_UsesInjectedPolicyStateAndPreservesItemName()
+    {
+        const string itemName = "Custom item";
+        var service = new ItemMaturationService(new FixedMaturingPolicy(new ItemState(new Quality(17), new SellIn(3))));
+        var item = new Item
+        {
+            Name = itemName,
+            Quality = 10,
+            SellIn = 5,
+        };
+
+        var result = service.Mature(item);
+
+        result.Name.Should().Be(itemName);
+        result.Quality.Should().Be(17);
+        result.SellIn.Should().Be(3);
+    }
+
+    private sealed class FixedMaturingPolicy(ItemState result) : IMaturingPolicy
+    {
+        public ItemState Mature(ItemKind kind, ItemState state)
+        {
+            return result;
+        }
+    }
 }
