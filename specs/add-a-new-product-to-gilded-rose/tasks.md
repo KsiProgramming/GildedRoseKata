@@ -1,0 +1,3 @@
+# Tasks: Add Mature Cheese to Gilded Rose
+- [ ] T001 [P] Recognize the exact `Mature Cheese` name as its own item kind in `src/Core/ProposedCode/Domain/ItemKind.cs` (FR-006, AC-006)
+- [ ] T002 Implement Mature Cheese’s daily quality and sell-by rules using the pre-update `sellIn`, existing quality bounds, and isolated dispatch in `src/Core/ProposedCode/Domain/ItemMaturingPolicy.cs` after T001 (FR-001–FR-005, FR-007–FR-010, AC-001–AC-005, AC-007–AC-010)
