@@ -18,6 +18,8 @@ public abstract record ItemKind
 
     public sealed record Sulfuras : ItemKind;
 
+    public sealed record MatureCheese : ItemKind;
+
     public static ItemKind FromName(string itemName)
     {
         return itemName switch
@@ -29,6 +31,7 @@ public abstract record ItemKind
             "Conjured Mana Cake" => new Conjured(),
             "Conjured" => new Conjured(),
             "Sulfuras, Hand of Ragnaros" => new Sulfuras(),
+            "Mature Cheese" => new MatureCheese(),
             _ => new Standard(),
         };
     }
