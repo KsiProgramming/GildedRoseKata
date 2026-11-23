@@ -89,4 +89,57 @@ public class ItemMaturingPolicyTests
 
         result.Should().Be(state);
     }
+
+    [Theory]
+    [InlineData(10, 5, 11, 4)]
+    [InlineData(10, 1, 11, 0)]
+    [InlineData(10, 0, 12, -1)]
+    [InlineData(10, -1, 12, -2)]
+    [InlineData(0, 5, 1, 4)]
+    [InlineData(1, 5, 2, 4)]
+    [InlineData(0, 0, 2, -1)]
+    [InlineData(48, 0, 50, -1)]
+    [InlineData(49, 5, 50, 4)]
+    [InlineData(49, 0, 50, -1)]
+    [InlineData(50, 5, 50, 4)]
+    [InlineData(50, 0, 50, -1)]
+    public void Mature_WhenKindIsMatureCheese_FollowsExpectedRules(int quality, int sellIn, int expectedQuality, int expectedSellIn)
+    {
+        var state = new ItemState(new Quality(quality), new SellIn(sellIn));
+
+        var result = this.policy.Mature(new ItemKind.MatureCheese(), state);
+
+        result.Quality.Value.Should().Be(expectedQuality);
+        result.SellIn.Value.Should().Be(expectedSellIn);
+    }
+
+    [Fact]
+    public void Mature_WhenKindIsMatureCheese_ConsecutiveUpdatesFollowExpectedRules()
+    {
+        var kind = new ItemKind.MatureCheese();
+        var state = new ItemState(new Quality(10), new SellIn(1));
+        var expectedQualities = new[] { 11, 13, 15 };
+        var expectedSellIns = new[] { 0, -1, -2 };
+
+        for (var day = 0; day < expectedQualities.Length; day++)
+        {
+            state = this.policy.Mature(kind, state);
+
+            state.Quality.Value.Should().Be(expectedQualities[day]);
+            state.SellIn.Value.Should().Be(expectedSellIns[day]);
+        }
+    }
+
+    [Fact]
+    public void Mature_WhenKindIsMatureCheese_IsDeterministic()
+    {
+        var kind = new ItemKind.MatureCheese();
+        var state = new ItemState(new Quality(10), new SellIn(0));
+
+        var first = this.policy.Mature(kind, state);
+        var second = this.policy.Mature(kind, state);
+
+        second.Quality.Value.Should().Be(first.Quality.Value);
+        second.SellIn.Value.Should().Be(first.SellIn.Value);
+    }
 }
